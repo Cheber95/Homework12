@@ -70,10 +70,10 @@ public class MyApp {
         MyApp myAppMain = new MyApp(arrHalf2);
         myAppMain.workArray();
 
-        boolean threadWorked;
+        boolean isThreadWorked;
         do {
-            threadWorked = t1.isAlive();
-        } while (threadWorked);
+            isThreadWorked = t1.isAlive();
+        } while (isThreadWorked);
 
         a = System.currentTimeMillis();
         System.arraycopy(arrHalf1,0,arr,0,arrHalf1.length);
