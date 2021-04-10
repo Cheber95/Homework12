@@ -59,14 +59,20 @@ public class MyApp {
         long b = System.currentTimeMillis();
         System.out.printf("разделение массива произведено за %d милисекунд\n", (b-a));
 
-        Thread t1 = new Thread( () -> new MyApp(arrHalf1).workArray());
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MyApp myAppThread1 = new MyApp(arrHalf1);
+                myAppThread1.workArray();
+            }
+        });
         t1.start();
-        Thread t2 = new Thread( () -> new MyApp(arrHalf2).workArray());
-        t2.start();
+        MyApp myAppMain = new MyApp(arrHalf2);
+        myAppMain.workArray();
 
         boolean threadWorked;
         do {
-            threadWorked = t1.isAlive() || t2.isAlive();
+            threadWorked = t1.isAlive();
         } while (threadWorked);
 
         a = System.currentTimeMillis();
