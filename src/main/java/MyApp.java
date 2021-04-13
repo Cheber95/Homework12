@@ -15,18 +15,6 @@ public class MyApp {
         float[] stArray = new float[SIZE];
         MyApp app = new MyApp(stArray);
         app.play1();
-        //app.play2();
-    }
-
-    private void play2() {
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = 1f;
-        }
-        method2();
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = 1f;
-        }
-        method1();
     }
 
     public void play1(){
@@ -59,15 +47,21 @@ public class MyApp {
         long b = System.currentTimeMillis();
         System.out.printf("разделение массива произведено за %d милисекунд\n", (b-a));
 
-        Thread t1 = new Thread( () -> new MyApp(arrHalf1).workArray());
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MyApp myAppThread1 = new MyApp(arrHalf1);
+                myAppThread1.workArray();
+            }
+        });
         t1.start();
-        Thread t2 = new Thread( () -> new MyApp(arrHalf2).workArray());
-        t2.start();
+        MyApp myAppMain = new MyApp(arrHalf2);
+        myAppMain.workArray();
 
-        boolean threadWorked;
+        boolean isThreadWorked;
         do {
-            threadWorked = t1.isAlive() || t2.isAlive();
-        } while (threadWorked);
+            isThreadWorked = t1.isAlive();
+        } while (isThreadWorked);
 
         a = System.currentTimeMillis();
         System.arraycopy(arrHalf1,0,arr,0,arrHalf1.length);
