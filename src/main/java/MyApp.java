@@ -15,18 +15,6 @@ public class MyApp {
         float[] stArray = new float[SIZE];
         MyApp app = new MyApp(stArray);
         app.play1();
-        //app.play2();
-    }
-
-    private void play2() {
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = 1f;
-        }
-        method2();
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = 1f;
-        }
-        method1();
     }
 
     public void play1(){
